@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "fecha": "2026-04-10",
+    "idUsuario": 1,
+    "estado": "entregado",
+    "fechaDespachado": "2026-04-10",
+    "fechaEntregado": "2026-04-11",
+    "productos": [
+      {
+        "id": 1,
+        "cantidad": 1,
+        "precio": 749.99
+      },
+      {
+        "id": 2,
+        "cantidad": 1,
+        "precio": 99.5
+      }
+    ],
+    "montoTotal": 849.49
+  },
+  {
+    "id": 2,
+    "fecha": "2026-04-11",
+    "idUsuario": 2,
+    "estado": "despachado",
+    "fechaDespachado": "2026-04-11",
+    "fechaEntregado": null,
+    "productos": [
+      {
+        "id": 3,
+        "cantidad": 2,
+        "precio": 45
+      },
+      {
+        "id": 6,
+        "cantidad": 1,
+        "precio": 59.99
+      }
+    ],
+    "montoTotal": 149.99
+  },
+  {
+    "id": 3,
+    "fecha": "2026-04-12",
+    "idUsuario": 3,
+    "estado": "pendiente",
+    "fechaDespachado": null,
+    "fechaEntregado": null,
+    "productos": [
+      {
+        "id": 4,
+        "cantidad": 1,
+        "precio": 179.99
+      },
+      {
+        "id": 5,
+        "cantidad": 1,
+        "precio": 82.75
+      },
+      {
+        "id": 8,
+        "cantidad": 1,
+        "precio": 129.9
+      }
+    ],
+    "montoTotal": 392.64
+  },
+  {
+    "id": 4,
+    "idUsuario": 3,
+    "productos": [
+      {
+        "id": 1,
+        "cantidad": 1,
+        "precio": 749.99
+      },
+      {
+        "id": 2,
+        "cantidad": 1,
+        "precio": 99.5
+      }
+    ],
+    "montoTotal": 546777
+  }
+]

@@ -1,0 +1,66 @@
+[
+    {
+        "id":  1,
+        "nombre":  "Laptop Lenovo IdeaPad 15",
+        "categoria":  "Laptops",
+        "descripcion":  "Laptop de 15.6 pulgadas con 16GB RAM y SSD de 512GB.",
+        "precio":  749.99,
+        "inventario":  12
+    },
+    {
+        "id":  2,
+        "nombre":  "Mouse Logitech MX Master 3S",
+        "categoria":  "Perifericos",
+        "descripcion":  "Mouse inalambrico ergonomico con sensor de alta precision.",
+        "precio":  99.5,
+        "inventario":  90
+    },
+    {
+        "id":  3,
+        "nombre":  "Teclado Mecanico Redragon K552",
+        "categoria":  "Perifericos",
+        "descripcion":  "Teclado mecanico compacto con iluminacion LED roja.",
+        "precio":  45,
+        "inventario":  30
+    },
+    {
+        "id":  4,
+        "nombre":  "Monitor Samsung 24 pulgadas FHD",
+        "categoria":  "Monitores",
+        "descripcion":  "Monitor IPS Full HD de 75Hz ideal para oficina y estudio.",
+        "precio":  179.99,
+        "inventario":  18
+    },
+    {
+        "id":  5,
+        "nombre":  "Disco SSD Kingston 1TB NVMe",
+        "categoria":  "Almacenamiento",
+        "descripcion":  "Unidad SSD NVMe M.2 de 1TB con alta velocidad de lectura.",
+        "precio":  82.75,
+        "inventario":  40
+    },
+    {
+        "id":  6,
+        "nombre":  "Audifonos Sony WH-CH520",
+        "categoria":  "Audio",
+        "descripcion":  "Audifonos bluetooth con microfono y bateria de larga duracion.",
+        "precio":  59.99,
+        "inventario":  22
+    },
+    {
+        "id":  7,
+        "nombre":  "Tablet Samsung Galaxy Tab A9",
+        "categoria":  "Tablets",
+        "descripcion":  "Tablet de 8.7 pulgadas con 64GB de almacenamiento.",
+        "precio":  219,
+        "inventario":  14
+    },
+    {
+        "id":  8,
+        "nombre":  "Router TP-Link Archer AX55",
+        "categoria":  "Redes",
+        "descripcion":  "Router Wi-Fi 6 de doble banda para hogar y oficina.",
+        "precio":  129.9,
+        "inventario":  16
+    }
+]

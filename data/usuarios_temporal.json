@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ana",
+    "apellidos": "Lopez",
+    "email": "ana.lopez@test.com",
+    "rol": "admin",
+    "contrasenia": "Admin1234"
+  },
+  {
+    "id": 2,
+    "nombre": "Carlos",
+    "apellidos": "Perez",
+    "email": "carlos.perez@test.com",
+    "rol": "usuario",
+    "contrasenia": "Usuario1234"
+  },
+  {
+    "id": 3,
+    "nombre": "Marta",
+    "apellidos": "Ruiz",
+    "email": "marta.ruiz@test.com",
+    "rol": "usuario",
+    "contrasenia": "Clave1234"
+  }
+]
