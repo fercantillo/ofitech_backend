@@ -16,6 +16,7 @@ app.use('/api/ordenes', ordenesRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/sesion', sesionRouter);
 
+//Manejo de errores
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Error interno del servidor';
