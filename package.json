@@ -17,7 +17,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "seed": "node scripts/seedFromJson.js",
+    "seed:reset": "node scripts/seedFromJson.js --reset"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
