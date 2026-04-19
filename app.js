@@ -2,6 +2,11 @@ require('dotenv').config();
 
 const express = require('express');
 const { connectDatabase } = require('./config/database');
+
+require('./models/User');
+require('./models/Product');
+require('./models/Order');
+require('./models/Sesion');
 const usuariosRouter = require('./routes/usuarios');
 const productosRouter = require('./routes/productos');
 const ordenesRouter = require('./routes/ordenes');
@@ -9,7 +14,8 @@ const loginRouter = require('./routes/login');
 const sesionRouter = require('./routes/sesion');
 
 const app = express();
-const port = 3000;
+const port = Number.parseInt(process.env.PORT || '3000', 10);
+const host = process.env.HOST || '0.0.0.0';
 
 app.use(express.json());
 
@@ -31,8 +37,8 @@ app.use((err, req, res, next) => {
 
 connectDatabase()
     .then(() => {
-        app.listen(port, () => {
-            console.log(`Servidor corriendo en puerto ${port}`);
+        app.listen(port, host, () => {
+            console.log(`Servidor corriendo en http://${host}:${port}`);
         });
     })
     .catch((err) => {
