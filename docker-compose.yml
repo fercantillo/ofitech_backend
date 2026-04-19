@@ -1,0 +1,30 @@
+# Backend Ofitech en la misma red que el resto del stack (p. ej. Mongo/Nginx).
+# Requisito: la red externa `webdev_default` ya debe existir:
+#   docker network ls | grep webdev_default
+# Si no existe, créala (o arranca antes el compose que la define):
+#   docker network create webdev_default
+#
+# En el servidor: crea `.env` con MONGODB_URI (host = nombre del servicio Mongo
+# en esa red, p. ej. mongodb://usuario:pass@mongo:27017/ofitech?authSource=admin).
+
+services:
+  ofitech-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ofitech_backend:latest
+    container_name: ofitech_backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PORT: "3001"
+      HOST: "0.0.0.0"
+    ports:
+      - "3001:3001"
+    networks:
+      - webdev_default
+
+networks:
+  webdev_default:
+    external: true
