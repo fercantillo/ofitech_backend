@@ -1,59 +1,39 @@
-﻿const fs = require('fs');
-const path = require('path');
+const Sesion = require('../models/Sesion');
 const { HttpError } = require('../utils/HttpError');
-const ruta = path.join(__dirname, '..', 'data', 'sesiones_temporal.json');
+const { toApiShape, toApiShapeList } = require('../utils/mongoDoc');
 
-const getSesiones = () => {
-    try {
-        const data = fs.readFileSync(ruta, 'utf8');
-        return JSON.parse(data);
-    } catch (err) {
-        throw new HttpError(500, 'Error al leer las sesiones');
-    }
+const getSesiones = async () => {
+    const sesiones = await Sesion.find().lean();
+    return toApiShapeList(sesiones);
 };
 
-const getSesionByToken = (token) => {
-    const sesiones = getSesiones();
-    const sesion = sesiones.find(ses => ses.token === token);
-
+const getSesionByToken = async (token) => {
+    const sesion = await Sesion.findOne({ token }).lean();
     if (!sesion) {
         throw new HttpError(401, 'Sesion no valida o expirada');
     }
-    return sesion;
+    return toApiShape(sesion);
 };
 
-const crearSesion = (idUsuario, token) => {
-    let sesiones;
-    try {
-        sesiones = getSesiones();
-    } catch (err) {
-        sesiones = [];
-    }
-
-    sesiones = sesiones.filter(ses => ses.idUsuario !== idUsuario);
+const crearSesion = async (idUsuario, token) => {
+    await Sesion.deleteMany({ idUsuario });
 
     const nuevaSesion = {
         token,
         idUsuario,
         fechaCreacion: new Date().toISOString(),
-        activa: true
+        activa: true,
     };
 
-    sesiones.push(nuevaSesion);
-    fs.writeFileSync(ruta, JSON.stringify(sesiones, null, 2), 'utf8');
+    await Sesion.create(nuevaSesion);
     return nuevaSesion;
 };
 
-const eliminarSesion = (token) => {
-    const sesiones = getSesiones();
-    const sesionExiste = sesiones.find(ses => ses.token === token);
-
-    if (!sesionExiste) {
+const eliminarSesion = async (token) => {
+    const borrado = await Sesion.findOneAndDelete({ token });
+    if (!borrado) {
         throw new HttpError(404, 'Sesion no encontrada');
     }
-
-    const nuevasSesiones = sesiones.filter(ses => ses.token !== token);
-    fs.writeFileSync(ruta, JSON.stringify(nuevasSesiones, null, 2), 'utf8');
     return true;
 };
 

@@ -2,6 +2,11 @@ require('dotenv').config();
 
 const express = require('express');
 const { connectDatabase } = require('./config/database');
+
+require('./models/User');
+require('./models/Product');
+require('./models/Order');
+require('./models/Sesion');
 const usuariosRouter = require('./routes/usuarios');
 const productosRouter = require('./routes/productos');
 const ordenesRouter = require('./routes/ordenes');

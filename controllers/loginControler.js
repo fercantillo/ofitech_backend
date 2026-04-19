@@ -1,27 +1,26 @@
-const fs = require('fs');
-const path = require('path');
-const { getUsuarios } = require('./usuariosController');
-const { crearSesion } = require('./sesionController');
 const { v4: uuidv4 } = require('uuid');
+const User = require('../models/User');
+const { HttpError } = require('../utils/HttpError');
+const { crearSesion } = require('./sesionController');
 
+const login = async (id, contrasenia) => {
+    const idNum = typeof id === 'number' && !Number.isNaN(id) ? id : parseInt(String(id), 10);
+    if (Number.isNaN(idNum)) {
+        throw new HttpError(400, 'ID invalido');
+    }
 
-const login = (id, contrasenia) => {
-    const usuarios = getUsuarios();
-    const usuario = usuarios.find(usu => usu.id === id);
-
+    const usuario = await User.findOne({ id: idNum }).lean();
     if (!usuario) {
-        console.error('Usuario no encontrado');
-        return -1;
+        throw new HttpError(401, 'Usuario o contrasenia incorrectos');
     }
 
-    if (usuario.contrasenia === contrasenia) {
-        const token = uuidv4();
-        crearSesion(id, token);
-        return token;
-    } else {
-        console.error('Contrasenia incorrecta');
-        return -1;
+    if (usuario.contrasenia !== contrasenia) {
+        throw new HttpError(401, 'Usuario o contrasenia incorrectos');
     }
-}
+
+    const token = uuidv4();
+    await crearSesion(idNum, token);
+    return token;
+};
 
 module.exports = { login };
