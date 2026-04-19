@@ -1,4 +1,7 @@
-﻿const express = require('express');
+require('dotenv').config();
+
+const express = require('express');
+const { connectDatabase } = require('./config/database');
 const usuariosRouter = require('./routes/usuarios');
 const productosRouter = require('./routes/productos');
 const ordenesRouter = require('./routes/ordenes');
@@ -26,6 +29,13 @@ app.use((err, req, res, next) => {
     return res.status(statusCode).json({ error: message });
 });
 
-app.listen(port, () => {
-    console.log(`Servidor corriendo en puerto ${port}`);
-});
+connectDatabase()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Servidor corriendo en puerto ${port}`);
+        });
+    })
+    .catch((err) => {
+        console.error('No se pudo conectar a MongoDB:', err.message);
+        process.exit(1);
+    });
