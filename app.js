@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const { connectDatabase } = require('./config/database');
 
 require('./models/User');
@@ -17,6 +18,7 @@ const app = express();
 const port = Number.parseInt(process.env.PORT || '3000', 10);
 const host = process.env.HOST || '0.0.0.0';
 
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/usuarios', usuariosRouter);
