@@ -14,17 +14,46 @@ function mapDuplicateKey(err) {
     throw err;
 }
 
+
+ //Genera la URL de la API externa de Picsum.
+
+const fetchRandomImage = (nombre, id) => {
+    // Usamos el nombre y ID como semilla para que la imagen sea constante
+    const seed = nombre.replace(/\s+/g, '') + id;
+    return `https://picsum.photos/seed/${seed}/300/300`;
+};
+
 const getProductos = async () => {
-    const productos = await Product.find().sort({ id: 1 }).lean();
-    return toApiShapeList(productos);
+    try {
+        const productos = await Product.find().sort({ id: 1 }).lean();
+        const apiProductos = toApiShapeList(productos);
+
+        //  la URL de la API externa a cada producto antes de enviarlo
+        return apiProductos.map((prod) => ({
+            ...prod,
+            imagen: fetchRandomImage(prod.nombre, prod.id)
+        }));
+    } catch (error) {
+        throw new HttpError(500, 'Error al obtener productos');
+    }
 };
 
 const getProductoById = async (id) => {
-    const producto = await Product.findOne({ id }).lean();
-    if (!producto) {
-        throw new HttpError(404, 'Producto no encontrado');
+    try {
+        const producto = await Product.findOne({ id }).lean();
+        if (!producto) {
+            throw new HttpError(404, 'Producto no encontrado');
+        }
+        
+        const apiProducto = toApiShape(producto);
+        return {
+            ...apiProducto,
+            imagen: fetchRandomImage(apiProducto.nombre, apiProducto.id)
+        };
+    } catch (error) {
+        if (error instanceof HttpError) throw error;
+        throw new HttpError(500, 'Error al obtener el producto');
     }
-    return toApiShape(producto);
 };
 
 const crearProducto = async (nombre, categoria, descripcion, precio, inventario) => {
@@ -72,9 +101,15 @@ const actualizarProducto = async (id, nombre, categoria, descripcion, precio, in
 const eliminarProducto = async (id) => {
     const borrado = await Product.findOneAndDelete({ id });
     if (!borrado) {
-        throw new HttpError(404, 'Producto no encontrado');
+        throw new HttpError(404, 'Orden no encontrada'); // Mantengo el mensaje original de tu archivo
     }
     return true;
 };
 
-module.exports = { getProductos, getProductoById, crearProducto, actualizarProducto, eliminarProducto };
+module.exports = { 
+    getProductos, 
+    getProductoById, 
+    crearProducto, 
+    actualizarProducto, 
+    eliminarProducto 
+};
